@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>傩面具五官组合</title>
+  <style>
+    body {
+      margin: 0;
+      background: #f9f6f2;
+      font-family: sans-serif;
+      overflow-x: hidden;
+    }
+    .container {
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
+      width: 100vw;
+    }
+    .controls {
+      width: 20%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .controls button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+    }
+    .mask {
+      position: relative;
+      width: 80%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mask img {
+      position: absolute;
+      max-height: 90vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="controls">
+      <button onclick="changePart('head')">换头饰</button>
+      <button onclick="changePart('eyes')">换眼睛</button>
+      <button onclick="changePart('nose')">换鼻子</button>
+      <button onclick="changePart('mouth')">换嘴巴</button>
+    </div>
+    <div class="mask">
+      <img id="head" src="/mnt/data/10头.jpeg">
+      <img id="eyes" src="/mnt/data/10眼.jpeg">
+      <img id="nose" src="/mnt/data/10鼻.jpeg">
+      <img id="mouth" src="/mnt/data/10嘴.jpeg">
+    </div>
+  </div>
+
+  <script>
+    const headImgs = [
+  "/mnt/data/10头.jpeg",
+  "/mnt/data/11头.jpeg",
+  "/mnt/data/12头.jpeg",
+  "/mnt/data/13头.jpeg",
+  "/mnt/data/14头.jpeg",
+  "/mnt/data/15头.jpeg",
+  "/mnt/data/16头.jpeg",
+  "/mnt/data/17头.jpeg",
+  "/mnt/data/18头.jpeg",
+  "/mnt/data/19头.jpeg",
+  "/mnt/data/1头.jpeg",
+  "/mnt/data/20头.jpeg",
+  "/mnt/data/21头.jpeg",
+  "/mnt/data/22头.jpeg",
+  "/mnt/data/23头.jpeg",
+  "/mnt/data/24头.jpeg",
+  "/mnt/data/25头.jpeg",
+  "/mnt/data/26头.jpeg",
+  "/mnt/data/27头.jpeg",
+  "/mnt/data/28头.jpeg",
+  "/mnt/data/29头.jpeg",
+  "/mnt/data/2头.jpeg",
+  "/mnt/data/30头.jpeg",
+  "/mnt/data/31头.jpeg",
+  "/mnt/data/32头.jpeg",
+  "/mnt/data/33头.jpeg",
+  "/mnt/data/34头.jpeg",
+  "/mnt/data/35头.jpeg",
+  "/mnt/data/36头.jpeg",
+  "/mnt/data/37头.jpeg",
+  "/mnt/data/38头.jpeg",
+  "/mnt/data/39头.jpeg",
+  "/mnt/data/3头.jpeg",
+  "/mnt/data/40头.jpeg",
+  "/mnt/data/42头.jpeg",
+  "/mnt/data/4头.jpeg",
+  "/mnt/data/5头.jpeg",
+  "/mnt/data/6头.jpeg",
+  "/mnt/data/7头.jpeg",
+  "/mnt/data/8头.jpeg",
+  "/mnt/data/9头.jpeg",
+];
+    const eyeImgs = [
+  "/mnt/data/10眼.jpeg",
+  "/mnt/data/11眼.jpeg",
+  "/mnt/data/12眼.jpeg",
+  "/mnt/data/13眼.jpeg",
+  "/mnt/data/14眼.jpeg",
+  "/mnt/data/15眼.jpeg",
+  "/mnt/data/16眼.jpeg",
+  "/mnt/data/17眼.jpeg",
+  "/mnt/data/18眼.jpeg",
+  "/mnt/data/19眼.jpeg",
+  "/mnt/data/1眼.jpeg",
+  "/mnt/data/20眼.jpeg",
+  "/mnt/data/21眼.jpeg",
+  "/mnt/data/22眼.jpeg",
+  "/mnt/data/23眼.jpeg",
+  "/mnt/data/24眼.jpeg",
+  "/mnt/data/25眼.jpeg",
+  "/mnt/data/26眼.jpeg",
+  "/mnt/data/27眼.jpeg",
+  "/mnt/data/28眼.jpeg",
+  "/mnt/data/29眼.jpeg",
+  "/mnt/data/2眼.jpeg",
+  "/mnt/data/30眼.jpeg",
+  "/mnt/data/31眼.jpeg",
+  "/mnt/data/32眼.jpeg",
+  "/mnt/data/33眼.jpeg",
+  "/mnt/data/34眼.jpeg",
+  "/mnt/data/35眼.jpeg",
+  "/mnt/data/36眼.jpeg",
+  "/mnt/data/37眼.jpeg",
+  "/mnt/data/38眼.jpeg",
+  "/mnt/data/39眼.jpeg",
+  "/mnt/data/3眼.jpeg",
+  "/mnt/data/40眼.jpeg",
+  "/mnt/data/42眼.jpeg",
+  "/mnt/data/4眼.jpeg",
+  "/mnt/data/5眼.jpeg",
+  "/mnt/data/6眼.jpeg",
+  "/mnt/data/7眼.jpeg",
+  "/mnt/data/8眼.jpeg",
+  "/mnt/data/9眼.jpeg",
+];
+    const noseImgs = [
+  "/mnt/data/10鼻.jpeg",
+  "/mnt/data/11鼻.jpeg",
+  "/mnt/data/12鼻.jpeg",
+  "/mnt/data/13鼻.jpeg",
+  "/mnt/data/14鼻.jpeg",
+  "/mnt/data/15鼻.jpeg",
+  "/mnt/data/16鼻.jpeg",
+  "/mnt/data/17鼻.jpeg",
+  "/mnt/data/18鼻.jpeg",
+  "/mnt/data/19鼻.jpeg",
+  "/mnt/data/1鼻.jpeg",
+  "/mnt/data/20鼻.jpeg",
+  "/mnt/data/21鼻.jpeg",
+  "/mnt/data/22鼻.jpeg",
+  "/mnt/data/23鼻.jpeg",
+  "/mnt/data/24鼻.jpeg",
+  "/mnt/data/25鼻.jpeg",
+  "/mnt/data/26鼻.jpeg",
+  "/mnt/data/27鼻.jpeg",
+  "/mnt/data/28鼻.jpeg",
+  "/mnt/data/29鼻.jpeg",
+  "/mnt/data/2鼻.jpeg",
+  "/mnt/data/30鼻.jpeg",
+  "/mnt/data/31鼻.jpeg",
+  "/mnt/data/32鼻.jpeg",
+  "/mnt/data/33鼻.jpeg",
+  "/mnt/data/34鼻.jpeg",
+  "/mnt/data/35鼻.jpeg",
+  "/mnt/data/36鼻.jpeg",
+  "/mnt/data/37鼻.jpeg",
+  "/mnt/data/38鼻.jpeg",
+  "/mnt/data/39鼻.jpeg",
+  "/mnt/data/3鼻.jpeg",
+  "/mnt/data/40鼻.jpeg",
+  "/mnt/data/42鼻.jpeg",
+  "/mnt/data/4鼻.jpeg",
+  "/mnt/data/5鼻.jpeg",
+  "/mnt/data/6鼻.jpeg",
+  "/mnt/data/7鼻.jpeg",
+  "/mnt/data/8鼻.jpeg",
+  "/mnt/data/9鼻.jpeg",
+];
+    const mouthImgs = [
+  "/mnt/data/10嘴.jpeg",
+  "/mnt/data/11嘴.jpeg",
+  "/mnt/data/12嘴.jpeg",
+  "/mnt/data/13嘴.jpeg",
+  "/mnt/data/14嘴.jpeg",
+  "/mnt/data/15嘴.jpeg",
+  "/mnt/data/16嘴.jpeg",
+  "/mnt/data/17嘴.jpeg",
+  "/mnt/data/18嘴.jpeg",
+  "/mnt/data/19嘴.jpeg",
+  "/mnt/data/1嘴.jpeg",
+  "/mnt/data/20嘴.jpeg",
+  "/mnt/data/21嘴.jpeg",
+  "/mnt/data/22嘴.jpeg",
+  "/mnt/data/23嘴.jpeg",
+  "/mnt/data/24嘴.jpeg",
+  "/mnt/data/25嘴.jpeg",
+  "/mnt/data/26嘴.jpeg",
+  "/mnt/data/27嘴.jpeg",
+  "/mnt/data/28嘴.jpeg",
+  "/mnt/data/29嘴.jpeg",
+  "/mnt/data/2嘴.jpeg",
+  "/mnt/data/30嘴.jpeg",
+  "/mnt/data/31嘴.jpeg",
+  "/mnt/data/32嘴.jpeg",
+  "/mnt/data/33嘴.jpeg",
+  "/mnt/data/34嘴.jpeg",
+  "/mnt/data/35嘴.jpeg",
+  "/mnt/data/36嘴.jpeg",
+  "/mnt/data/37嘴.jpeg",
+  "/mnt/data/38嘴.jpeg",
+  "/mnt/data/39嘴.jpeg",
+  "/mnt/data/3嘴.jpeg",
+  "/mnt/data/40嘴.jpeg",
+  "/mnt/data/42嘴.jpeg",
+  "/mnt/data/4嘴.jpeg",
+  "/mnt/data/5嘴.jpeg",
+  "/mnt/data/6嘴.jpeg",
+  "/mnt/data/7嘴.jpeg",
+  "/mnt/data/8嘴.jpeg",
+  "/mnt/data/9嘴.jpeg",
+];
+
+    let indices = { head: 0, eyes: 0, nose: 0, mouth: 0 };
+
+    function changePart(part) {
+      const arrays = {
+        head: headImgs,
+        eyes: eyeImgs,
+        nose: noseImgs,
+        mouth: mouthImgs
+      };
+      indices[part] = (indices[part] + 1) % arrays[part].length;
+      document.getElementById(part).src = arrays[part][indices[part]];
+    }
+  </script>
+</body>
+</html>
